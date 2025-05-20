@@ -1,8 +1,6 @@
 package com.example.springbootblog.models;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,9 +8,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 public class Authority implements Serializable {
 
     @Id

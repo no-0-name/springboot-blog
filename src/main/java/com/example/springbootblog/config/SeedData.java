@@ -6,7 +6,7 @@ import com.example.springbootblog.models.Post;
 import com.example.springbootblog.repositories.AuthorityRepository;
 import com.example.springbootblog.services.AccountService;
 import com.example.springbootblog.services.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,22 +15,17 @@ import java.util.List;
 import java.util.Set;
 
 @Component
+@RequiredArgsConstructor
 public class SeedData implements CommandLineRunner {
-
-    @Autowired
-    private PostService postService;
-
-    @Autowired
-    private AccountService accountService;
-
-    @Autowired
-    private AuthorityRepository authorityRepository;
+    private final PostService postService;
+    private final AccountService accountService;
+    private final AuthorityRepository authorityRepository;
 
     @Override
     public void run(String... args) throws Exception {
         List<Post> posts = postService.getAll();
 
-        if (posts.size() == 0) {
+        if (posts.isEmpty()) {
 
             Authority user = new Authority();
             user.setName("ROLE_USER");

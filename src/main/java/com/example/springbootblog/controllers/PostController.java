@@ -4,7 +4,7 @@ import com.example.springbootblog.models.Account;
 import com.example.springbootblog.models.Post;
 import com.example.springbootblog.services.AccountService;
 import com.example.springbootblog.services.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,19 +17,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 public class PostController {
-
-    @Autowired
-    private PostService postService;
-
-    @Autowired
-    private AccountService accountService;
+    private final PostService postService;
+    private final AccountService accountService;
 
     @GetMapping("/posts/{id}")
     public String getPost(@PathVariable Long id, Model model) {
-        // find the post by id
+        // Find the post by id
         Optional<Post> optionalPost = postService.getById(id);
-        // if the post exists, then show it into the model
+        // If the post exists, then show it into the model
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
             model.addAttribute("post", post);
@@ -63,9 +60,9 @@ public class PostController {
     @PreAuthorize("isAuthenticated()")
     public String getPostForEdit(@PathVariable Long id, Model model) {
 
-        // find post by id
+        // Find post by id
         Optional<Post> optionalPost = postService.getById(id);
-        // if post exist put it in model
+        // If post exist put it in model
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
             model.addAttribute("post", post);
@@ -75,7 +72,7 @@ public class PostController {
         }
     }
 
-//    Mapping for post edit
+//  Mapping for post edit
     @PostMapping("/posts/{id}")
     @PreAuthorize("isAuthenticated()")
     public String updatePost(@PathVariable Long id, Post post, BindingResult result, Model model) {
@@ -92,12 +89,12 @@ public class PostController {
         return "redirect:/posts/" + post.getId();
     }
 
-//    Delete post
+//  Delete post
     @GetMapping("/posts/{id}/delete")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String deletePost(@PathVariable Long id) {
 
-        // find post by id
+        // Find post by id
         Optional<Post> optionalPost = postService.getById(id);
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();

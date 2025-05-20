@@ -1,15 +1,13 @@
 package com.example.springbootblog.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
+@Data
 public class Post {
 
     @Id
